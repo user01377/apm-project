@@ -30,9 +30,28 @@ spawn_apps() {
     done
 }
 
+collect_process_metrics() {
+    while true; do
+        sleep 5
+    
+        for APM in "${APMS[@]}"; do
+            app_process_id=$(pgrep "$APM")
+            
+            cpu=$(ps -p "$app_process_id" -o %cpu= | awk '{print $1}')
+            ram=$(ps -p "$app_process_id" -o %mem= | awk '{print $1}')
+
+            echo "$SECONDS"
+            echo "$cpu"
+            echo "$ram"
+        done
+    done
+}
+
+
 main() {
     # get_interface_ip
     spawn_apps
+    collect_process_metrics &
     wait
 }
 
