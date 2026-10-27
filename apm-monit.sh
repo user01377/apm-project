@@ -7,6 +7,7 @@ cleanup(){
 
     for APM in "${APMS[@]}"; do
         pkill $APM
+        echo "Killed $APM"
     done
 
     echo "Cleanup Finished"
