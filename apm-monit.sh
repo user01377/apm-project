@@ -40,7 +40,7 @@ collect_process_metrics() {
             CPU=$(ps -p "$app_process_id" -o %cpu= | awk '{print $1}')
             RAM=$(ps -p "$app_process_id" -o %mem= | awk '{print $1}')
 
-            echo "${SECONDS},${CPU},${RAM}" >> "{$APM}_metrics.csv"
+            echo "${SECONDS},${CPU},${RAM}" >> "${APM}_metrics.csv"
         done
     done
 }
