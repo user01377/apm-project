@@ -2,7 +2,7 @@
 
 APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
-cleanup(){
+cleanup() {
     echo "Cleaning Up Processes.."
 
     for APM in "${APMS[@]}"; do
@@ -13,7 +13,7 @@ cleanup(){
     echo "Cleanup Finished"
 }
 
-get_interface_ip(){
+get_interface_ip() {
     ip_addr=
 
     ip_addr=$(ifconfig | grep -F "inet 192." | awk '{print $2}')
@@ -30,9 +30,12 @@ spawn_apps() {
     done
 }
 
+main() {
+    # get_interface_ip
+    spawn_apps
+    wait
+}
+
 trap cleanup EXIT
 
-# get_interface_ip
-spawn_apps
-
-wait
+main
