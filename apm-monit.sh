@@ -2,6 +2,16 @@
 
 APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
+cleanup(){
+    echo "Cleaning Up Processes.."
+
+    for APM in "${APMS[@]}"; do
+        pkill $APM
+    done
+
+    echo "Cleanup Finished"
+}
+
 get_interface_ip(){
     ip_addr=
 
@@ -15,8 +25,13 @@ spawn_apps() {
 
     for APM in "${APMS[@]}"; do
         ./"$APM" "$ip_addr" &
+        echo "Spawned $APM"
     done
 }
 
+trap cleanup EXIT
+
 # get_interface_ip
 spawn_apps
+
+wait
