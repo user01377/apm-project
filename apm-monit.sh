@@ -31,16 +31,18 @@ spawn_apps() {
 }
 
 collect_process_metrics() {
+    mkdir -p "./process_data"
+    
     while true; do
         sleep 5
-    
+
         for APM in "${APMS[@]}"; do
             app_process_id=$(pgrep "$APM")
             
             CPU=$(ps -p "$app_process_id" -o %cpu= | awk '{print $1}')
             RAM=$(ps -p "$app_process_id" -o %mem= | awk '{print $1}')
 
-            echo "${SECONDS},${CPU},${RAM}" >> "${APM}_metrics.csv"
+            echo "${SECONDS},${CPU},${RAM}" >> "./process_data/${APM}_metrics.csv"
         done
     done
 }
