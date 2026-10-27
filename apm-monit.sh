@@ -37,12 +37,10 @@ collect_process_metrics() {
         for APM in "${APMS[@]}"; do
             app_process_id=$(pgrep "$APM")
             
-            cpu=$(ps -p "$app_process_id" -o %cpu= | awk '{print $1}')
-            ram=$(ps -p "$app_process_id" -o %mem= | awk '{print $1}')
+            CPU=$(ps -p "$app_process_id" -o %cpu= | awk '{print $1}')
+            RAM=$(ps -p "$app_process_id" -o %mem= | awk '{print $1}')
 
-            echo "$SECONDS"
-            echo "$cpu"
-            echo "$ram"
+            echo "${SECONDS},${CPU},${RAM}" >> "{$APM}_metrics.csv"
         done
     done
 }
