@@ -56,7 +56,6 @@ collect_process_metrics() {
 }
 
 main() {
-    # get_interface_ip
     spawn_apps
     collect_process_metrics &
     wait
