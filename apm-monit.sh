@@ -9,10 +9,12 @@ get_interface_ip(){
 }
 
 spawn_apps() {
+    get_interface_ip
+
     local APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
     for APM in "${APMS[@]}"; do
-        echo "$APM"
+        ./"$APM" "$ip_addr"
     done
 }
 
