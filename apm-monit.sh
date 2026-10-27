@@ -2,6 +2,7 @@
 
 APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
+# cleanup function that runs when the trap is executed
 cleanup() {
     echo "Cleaning Up Processes.."
 
@@ -13,6 +14,7 @@ cleanup() {
     echo "Cleanup Finished"
 }
 
+# helper func which gets current ip of machine, used for starting the scripts
 get_interface_ip() {
     ip_addr=
 
@@ -21,6 +23,7 @@ get_interface_ip() {
     # echo "$ip_addr"
 }
 
+# spawns all applications in the APMS array
 spawn_apps() {
     get_interface_ip
 
@@ -30,6 +33,7 @@ spawn_apps() {
     done
 }
 
+# function to collect process level data. Writes all CSV files to /process_data directory located in the directory where this script is ran from
 collect_process_metrics() {
     mkdir -p "./process_data"
 
@@ -50,7 +54,6 @@ collect_process_metrics() {
         done
     done
 }
-
 
 main() {
     # get_interface_ip
