@@ -14,7 +14,7 @@ spawn_apps() {
     local APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
     for APM in "${APMS[@]}"; do
-        ./"$APM" "$ip_addr"
+        ./"$APM" "$ip_addr" &
     done
 }
 
