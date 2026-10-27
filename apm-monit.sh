@@ -32,7 +32,11 @@ spawn_apps() {
 
 collect_process_metrics() {
     mkdir -p "./process_data"
-    
+
+    for APM in "${APMS[@]}"; do
+        echo "Seconds,CPU,RAM" > "./process_data/${APM}_metrics.csv"
+    done
+
     while true; do
         sleep 5
 
