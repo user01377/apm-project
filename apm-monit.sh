@@ -1,5 +1,7 @@
 #!/bin/bash
 
+APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
+
 get_interface_ip(){
     ip_addr=
 
@@ -10,8 +12,6 @@ get_interface_ip(){
 
 spawn_apps() {
     get_interface_ip
-
-    local APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
     for APM in "${APMS[@]}"; do
         ./"$APM" "$ip_addr" &
