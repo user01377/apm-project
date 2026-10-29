@@ -16,7 +16,7 @@ cleanup() {
 
 # helper func which gets current ip of machine, used for starting the scripts
 get_interface_ip() {
-    ip_addr=
+    # ip_addr=
 
     ip_addr=$(ifconfig | grep -F "inet 192." | awk '{print $2}')
 
@@ -53,6 +53,11 @@ collect_process_metrics() {
             echo "${SECONDS},${CPU},${RAM}" >> "./process_data/${APM}_metrics.csv"
         done
     done
+}
+
+collect_system_metrics(){
+    mkdir -p "./system_data"
+
 }
 
 main() {
