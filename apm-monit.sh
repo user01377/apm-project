@@ -55,9 +55,27 @@ collect_process_metrics() {
     done
 }
 
-collect_system_metrics(){
+collect_system_metrics() {
     mkdir -p "./system_data"
+    echo "Seconds,RX,TX,DiskWrites,AvailableDisk" > "./system_data/system_metrics.csv"
 
+    while true; do
+        sleep 5
+
+        # Extract disk write rate (kB_wrtn/s) using iostat (sums across disks if multiple exist)
+        DISK_WRITES=$(iostat -d 1 2 2>/dev/null | tail -n +4 | awk '{sum+=$4} END {print sum+0}')
+        if [ -z "$DISK_WRITES" ]; then
+            DISK_WRITES="0"
+        fi
+
+        # Extract available disk capacity for the current filesystem using df
+        AVAIL_DISK=$(df . 2>/dev/null | awk 'NR==2 {print $4}')
+        if [ -z "$AVAIL_DISK" ]; then
+            AVAIL_DISK="0"
+        fi
+
+        echo "${SECONDS},${RX},${TX},${DISK_WRITES},${AVAIL_DISK}" >> "./system_data/system_metrics.csv"
+    done
 }
 
 main() {
