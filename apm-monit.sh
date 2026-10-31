@@ -69,7 +69,7 @@ collect_system_metrics() {
         fi
 
         # get available disk capacity
-        AVAIL_DISK=$(df . 2>/dev/null | awk 'NR==2 {print $4}')
+        AVAIL_DISK=$(df -BG . | awk 'NR==2 {print $4}')
         if [ -z "$AVAIL_DISK" ]; then
             AVAIL_DISK="0"
         fi
