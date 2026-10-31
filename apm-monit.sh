@@ -62,13 +62,13 @@ collect_system_metrics() {
     while true; do
         sleep 5
 
-        # Extract disk write rate (kB_wrtn/s) using iostat (sums across disks if multiple exist)
-        DISK_WRITES=$(iostat -d 1 2 2>/dev/null | tail -n +4 | awk '{sum+=$4} END {print sum+0}')
+        # get disk write statistic from the primary drive (sda)
+        DISK_WRITES=$(iostat sda | grep sda | awk '{print $4}')
         if [ -z "$DISK_WRITES" ]; then
             DISK_WRITES="0"
         fi
 
-        # Extract available disk capacity for the current filesystem using df
+        # get available disk capacity
         AVAIL_DISK=$(df . 2>/dev/null | awk 'NR==2 {print $4}')
         if [ -z "$AVAIL_DISK" ]; then
             AVAIL_DISK="0"
