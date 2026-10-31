@@ -42,8 +42,6 @@ collect_process_metrics() {
     done
 
     while true; do
-        sleep 5
-
         for APM in "${APMS[@]}"; do
             app_process_id=$(pgrep "$APM")
             
@@ -52,6 +50,8 @@ collect_process_metrics() {
 
             echo "${SECONDS},${CPU},${RAM}" >> "./process_data/${APM}_metrics.csv"
         done
+
+        sleep 5
     done
 }
 
@@ -60,8 +60,6 @@ collect_system_metrics() {
     echo "Seconds,DiskWrites(KB/s),AvailableDisk(GB)" > "./system_data/system_metrics.csv"
 
     while true; do
-        sleep 5
-
         # get disk write statistic from the primary drive (sda)
         DISK_WRITES=$(iostat sda | grep sda | awk '{print $4}')
         if [ -z "$DISK_WRITES" ]; then
@@ -75,6 +73,8 @@ collect_system_metrics() {
         fi
 
         echo "${SECONDS},${DISK_WRITES},${AVAIL_DISK}" >> "./system_data/system_metrics.csv"
+
+        sleep 5
     done
 }
 
