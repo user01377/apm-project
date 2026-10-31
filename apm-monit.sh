@@ -81,6 +81,7 @@ collect_system_metrics() {
 main() {
     spawn_apps
     collect_process_metrics &
+    collect_system_metrics &
     wait
 }
 
