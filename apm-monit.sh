@@ -57,7 +57,7 @@ collect_process_metrics() {
 
 collect_system_metrics() {
     mkdir -p "./system_data"
-    echo "Seconds,RX,TX,DiskWrites,AvailableDisk" > "./system_data/system_metrics.csv"
+    echo "Seconds,DiskWrites,AvailableDisk" > "./system_data/system_metrics.csv"
 
     while true; do
         sleep 5
@@ -74,7 +74,7 @@ collect_system_metrics() {
             AVAIL_DISK="0"
         fi
 
-        echo "${SECONDS},${RX},${TX},${DISK_WRITES},${AVAIL_DISK}" >> "./system_data/system_metrics.csv"
+        echo "${SECONDS},${DISK_WRITES},${AVAIL_DISK}" >> "./system_data/system_metrics.csv"
     done
 }
 
