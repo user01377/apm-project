@@ -57,7 +57,7 @@ collect_process_metrics() {
 
 collect_system_metrics() {
     mkdir -p "./system_data"
-    echo "Seconds,DiskWrites,AvailableDisk" > "./system_data/system_metrics.csv"
+    echo "Seconds,DiskWrites(KB/s),AvailableDisk(GB)" > "./system_data/system_metrics.csv"
 
     while true; do
         sleep 5
