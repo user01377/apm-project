@@ -4,7 +4,7 @@ APMS=("APM1" "APM2" "APM3" "APM4" "APM5" "APM6")
 
 # cleanup function that runs when the trap is executed
 cleanup() {
-    echo "Cleaning Up Processes.."
+    echo -e "\nCleaning Up Processes.."
 
     for APM in "${APMS[@]}"; do
         pkill $APM
