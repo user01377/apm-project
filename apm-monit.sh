@@ -57,7 +57,7 @@ collect_process_metrics() {
 
 collect_system_metrics() {
     mkdir -p "./system_data"
-    echo "Seconds,DiskWrites(KB/s),AvailableDisk(GB)" > "./system_data/system_metrics.csv"
+    echo "Seconds,DiskWrites(KB/s),AvailableDisk(MB)" > "./system_data/system_metrics.csv"
 
     while true; do
         # get disk write statistic from the primary drive (sda)
@@ -67,7 +67,7 @@ collect_system_metrics() {
         fi
 
         # get available disk capacity
-        AVAIL_DISK=$(df -BG . | awk 'NR==2 {print $4}')
+        AVAIL_DISK=$(df -BM . | awk 'NR==2 {print $4}' | tr -d 'M')
         if [ -z "$AVAIL_DISK" ]; then
             AVAIL_DISK="0"
         fi
