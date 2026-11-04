@@ -77,7 +77,7 @@ collect_system_metrics() {
         sleep 5
     done
 }
-
+#
 main() {
     spawn_apps
     collect_process_metrics &
